@@ -632,10 +632,10 @@ vi /home/pi/.config/lxsession/LXDE-pi/autostart
 and add this line to the bottom (this will execute the script we created in an earlier step)
 
 ```
-@/bin/bash 'sleep 15 ; /home/pi/Desktop/StargateAtlantisCommand.sh'
+@/bin/bash /home/pi/Desktop/StargateAtlantisCommand.sh
 ```
 
-Reboot your Pi, and the webpage should launch on its attached display automatically!
+Reboot your Pi, and the webpage should launch on its attached display automatically! (Note: there's a race condition here where the webpage might try to open before the stargate software is running in the background; in that case just wait a minute then tap "reload" in the browser).
 
 
 ### Screensaver
@@ -671,7 +671,7 @@ Your complete autostart file should now look something like this:
 @lxpanel --profile LXDE-pi
 @pcmanfm --desktop --profile LXDE-pi
 @xscreensaver -no-splash
-@/bin/bash 'sleep 5 ; /home/pi/Desktop/StargateAtlantisCommand.sh'
+@/bin/bash /home/pi/Desktop/StargateAtlantisCommand.sh
 @/home/pi/stargateatlantis/web/VideoScreensaver.sh
 ```
 
