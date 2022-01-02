@@ -198,11 +198,15 @@ On your laptop, with the SD card inserted, open your Applications > Utilities > 
 
 Perform step 3 from https://www.raspberrypi.org/documentation/remote-access/ssh/ to enable ssh:
 
-```touch /Volumes/boot/ssh```
+```
+touch /Volumes/boot/ssh
+```
 
 Then, follow these steps to set up wifi access: https://www.raspberrypi.org/documentation/configuration/wireless/headless.md
 
-```vi /Volumes/boot/wpa_supplicant.conf```
+```
+vi /Volumes/boot/wpa_supplicant.conf
+```
 
 (I use `vi` for my editor; if you're new to the command line, replace the word "vi" with "nano" in the command above, and anywhere else in this document that you see "vi")
 
@@ -238,7 +242,9 @@ pi$ nano .ssh/authorized_keys
 
 Into that authorized_keys file, paste the contents of this next command, then save the file:
 
-```your laptop$ cat .ssh/id_rsa.pub```
+```
+your laptop$ cat .ssh/id_rsa.pub
+```
 
 
 ### Run updates
@@ -275,7 +281,9 @@ set mouse-=a
 
 Some of these may already be at the newest version.
 
-```sudo apt install python3 python3-daemon python3-pip python3-gpiozero python3-dev git```
+```
+sudo apt install python3 python3-daemon python3-pip python3-gpiozero python3-dev git
+```
 
 Not required but recommended is to set python3 to be default (over python2) :
 
@@ -295,11 +303,15 @@ sudo systemctl stop apache2
 
 Install one more package (it may already be installed), required for controlling the speaker volume from the web page interface:
 
-```sudo apt install alsa-utils```
+```
+sudo apt install alsa-utils
+```
 
 Next install required Python (pip3) packages:
 
-```sudo pip3 install pygame gpiozero daemon daemontools python-daemon```
+```
+sudo pip3 install pygame gpiozero daemon daemontools python-daemon
+```
 
 
 ### Install speaker software
@@ -329,7 +341,9 @@ Press "q" to quit.
 
 There are several changes needed in /boot/config.txt.
 
-```sudo vi /boot/config.txt```
+```
+sudo vi /boot/config.txt
+```
 
 Uncomment and/or add the following lines:
 ```
@@ -340,7 +354,9 @@ dtparam=spi=on
 ```
 
 Comment out this line if it's not already:
-```#dtparam=audio=on```
+```
+#dtparam=audio=on
+```
 
 Add these lines if they aren't already there:
 ```
@@ -359,11 +375,15 @@ The `core_freq=400` and `core_freq_min=400` are **very important** so the LEDs w
 
 After making all the above changes, reboot.
 
-```sudo reboot```
+```
+sudo reboot
+```
 
 After rebooting, make sure these files show up:
 
-```ls -l /dev/spi*```
+```
+ls -l /dev/spi*
+```
 
 If you don't get output from that command, something isn't right and you'll have to troubleshoot.
 
@@ -371,11 +391,14 @@ If you don't get output from that command, something isn't right and you'll have
 
 This is required to control the WS2812 LEDs over SPI. Edit this file and add the one line, then reboot:
 
-```sudo vi /etc/modprobe.d/snd-blacklist.conf
+```
+sudo vi /etc/modprobe.d/snd-blacklist.conf
 blacklist snd_bcm2835
 ```
 
-```sudo reboot```
+```
+sudo reboot
+```
 
 ### /boot/cmdline.txt
 
@@ -390,7 +413,9 @@ console=serial0,115200 console=tty1 root=PARTUUID=........-.. rootfstype=ext4 el
 
 If using the WaveShare 7" monitor, follow these directions from [https://www.waveshare.com/w/upload/5/58/7inch_HDMI_LCD_%28H%29_User_Manual.pdf](https://www.waveshare.com/w/upload/5/58/7inch_HDMI_LCD_%28H%29_User_Manual.pdf) : 
 
-```sudo vi /boot/config.txt```
+```
+sudo vi /boot/config.txt
+```
 
 Add these lines to the bottom of the file:
 ```
@@ -413,7 +438,9 @@ Using `sudo raspi-config`, under System Options, enable "Desktop Autologin".
 
 Reboot your pi, after which you can plug in the WaveShare monitor:
 
-```sudo reboot```
+```
+sudo reboot
+```
 
 
 ## Testing the LEDs
@@ -422,7 +449,9 @@ If you haven't already connected your PCB HAT to the Pi and plugged in all your 
 
 Install this library from https://github.com/rpi-ws281x/rpi-ws281x-python :
 
-```sudo pip3 install rpi_ws281x```
+```
+sudo pip3 install rpi_ws281x
+```
 
 (On my Pi, after I hit return it seemed to sit for a minute before doing anything, so don't panic if you don't see immediate activity)
 
@@ -453,7 +482,9 @@ And then personally I recommend commenting out the `theaterChase` commands on li
 
 This is the moment of truth. Test your LED strand with:
 
-```sudo python3 /home/pi/rpi-ws281x-python/examples/strandtest.py -c```
+```
+sudo python3 /home/pi/rpi-ws281x-python/examples/strandtest.py -c
+```
 
 At this point all the LEDs should light up in sequence. Note that my example above sets the LED_BRIGHTNESS variable to 64 out of 255, so don't worry if some of the LEDs appear "dim" (for instance the staircase and gate symbols that are behind a layer of 3D printed plastic).
 
@@ -481,16 +512,22 @@ For more information, you can download the data sheet for the WS2812B from World
 
 Create a folder for the Stargate in the Pi user's home directory:
 
-```mkdir ~/stargateatlantis```
+```
+mkdir ~/stargateatlantis
+```
 
 Copy all the files here. I used the following "rsync" command, so I could make edits on my local computer and then upload quickly to the Pi:
 
-```my laptop$ rsync -vPrltgoD -e ssh "/path/to/StargateAtlantisRaspberryPi/" pi@atlantispi.local:/home/pi/stargateatlantis/```
+```
+my laptop$ rsync -vPrltgoD -e ssh "/path/to/StargateAtlantisRaspberryPi/" pi@atlantispi.local:/home/pi/stargateatlantis/
+```
 
 
 If you're using the WaveShare 7" or another touch-sensitive monitor attached to your Pi, create a script on your Pi's Desktop that will launch the web interface:
 
-```vi /home/pi/Desktop/StargateAtlantisCommand.sh```
+```
+vi /home/pi/Desktop/StargateAtlantisCommand.sh
+```
 
 Copy/paste these file contents:
 
@@ -506,7 +543,9 @@ export DISPLAY=:0.0
 
 Make the file executable:
 
-```chmod u+x /home/pi/Desktop/StargateAtlantisCommand.sh```
+```
+chmod u+x /home/pi/Desktop/StargateAtlantisCommand.sh
+```
 
 Later, once the Stargate software is running, you can double tap on this script from your Pi's desktop to launch a full-screen web browser to control the Stargate.
 
@@ -523,14 +562,18 @@ wget https://code.jquery.com/jquery-3.3.1.min.js
 
 All code configuration is done in the `config.py` file. The only values you *must* customize are the "LED Ranges" section, based on how many LEDs you have and what order you've plugged them in (the Data In/Data Out connections). Optionally, there are also some LED brightness and color settings that you can customize.
 
-```vi /home/pi/stargateatlantis/config.py```
+```
+vi /home/pi/stargateatlantis/config.py
+```
 
 After you've customized your `config.py` file, run the main program as follows: (note, it's important to change directories to the stargateatlantis directory, otherwise the web server won't find the /web/ folder and will return 404 errors in your browser)
 
-```cd /home/pi/stargateatlantis/ ; sudo python3 main.py```
+```
+cd /home/pi/stargateatlantis/ ; sudo python3 main.py
+```
 
 
-You can now open the `StargateAtlantisCommand.sh` script on your touch-monitor, or on another computer visit to http://atlantispi.local , to control your Stargate.
+You can now open the `StargateAtlantisCommand.sh` script on your touch-monitor, or on another computer visit http://atlantispi.local , to control your Stargate.
 
 
 ### Auto-Run
@@ -557,7 +600,9 @@ exec /usr/bin/python3 main.py
 
 Save and quit, then execute the following:
 
-```sudo chmod u+x /etc/service/stargateatlantis/run```
+```
+sudo chmod u+x /etc/service/stargateatlantis/run
+```
 
 The Python program should immediately start running. You can now control the Stargate via web browser as soon as the Raspberry Pi boots.
 
@@ -567,7 +612,9 @@ To automatically launch the dialing web page on your Pi's touch-screen monitor w
 
 Check to see if you already have an autostart file:
 
-```ls /home/pi/.config/lxsession/LXDE-pi/autostart```
+```
+ls /home/pi/.config/lxsession/LXDE-pi/autostart
+```
 
 If you don't, copy the default one as a starting point:
 
@@ -578,11 +625,15 @@ cp /etc/xdg/lxsession/LXDE-pi/autostart /home/pi/.config/lxsession/LXDE-pi/autos
 
 Now edit it:
 
-```vi /home/pi/.config/lxsession/LXDE-pi/autostart```
+```
+vi /home/pi/.config/lxsession/LXDE-pi/autostart
+```
 
 and add this line to the bottom (this will execute the script we created in an earlier step)
 
-```@/bin/bash 'sleep 5 ; /home/pi/Desktop/StargateAtlantisCommand.sh'```
+```
+@/bin/bash 'sleep 5 ; /home/pi/Desktop/StargateAtlantisCommand.sh'
+```
 
 Reboot your Pi, and the webpage should launch on its attached display automatically!
 
@@ -591,15 +642,21 @@ Reboot your Pi, and the webpage should launch on its attached display automatica
 
 If you'd like to enable a Stargate Atlantis screensaver (I downloaded [this video](https://www.youtube.com/watch?v=0H_0eXsFi20) as an mp4, though you might also like [this one](https://www.youtube.com/watch?v=ZtLJfxEZRN4)), do the following steps:
 
-```sudo apt-get install xscreensaver```
+```
+sudo apt-get install xscreensaver
+```
 
 Change permissions on this file (already included in your Git download):
 
-```chmod +x /home/pi/stargateatlantis/web/VideoScreensaver.sh```
+```
+chmod +x /home/pi/stargateatlantis/web/VideoScreensaver.sh
+```
 
 Edit your autostart file
 
-```vi /home/pi/.config/lxsession/LXDE-pi/autostart```
+```
+vi /home/pi/.config/lxsession/LXDE-pi/autostart
+```
 
 and add these lines at the end:
 
