@@ -1,0 +1,221 @@
+<html>
+    <head>
+        <meta charset="UTF-8"> 
+        <title>Stargate Command</title>
+        <link rel="stylesheet" href="main.css" />
+        <style>
+        .animation {margin:10px;}
+        </style>
+    </head>
+    <body>
+       
+        <div class="animations">
+        <h2>Dialing control </h2>
+            <div class="animation" anim="4" action="spinBackward">
+                "Spin" backward
+            </div>
+            <div class="animation" anim="4" action="spinForward">
+                "Spin" forward
+            </div>
+            <br />
+            <input type="text" size="3" id="individualNumericSymbol"></input>
+             <div class="individualSymbolAnimation" anim="4" action="spinBackwardToNumericSymbol">
+                "Spin" backward to numeric symbol
+            </div>
+            <div class="individualSymbolAnimation" anim="4" action="spinForwardToNumericSymbol">
+                "Spin" forward to numeric symbol
+            </div>
+            <br />
+            <input type="text" size="3" id="individualPhysicalSymbol"></input>
+             <div class="individualSymbolAnimation" anim="4" action="spinBackwardToPhysicalSymbol">
+                "Spin" backward to physical symbol
+            </div>
+            <div class="individualSymbolAnimation" anim="4" action="spinForwardToPhysicalSymbol">
+                "Spin" forward to physical symbol
+            </div>
+            
+	    <hr />
+        <h2>Lighting control </h2>
+            <div class="animation" anim="4" action="allLightsOn">
+                All on
+            </div>
+            <div class="animation" anim="4" action="allLightsOff">
+                All off
+            </div>
+            <div class="animation" anim="4" action="strandTest">
+                Strand Test
+            </div>
+            
+            <hr />
+            
+            <div class="animation" anim="4" action="wormholeOn">
+                Wormhole on (1 minute)
+            </div>
+            <div class="animation" anim="4" action="wormholeOff">
+                Wormhole off
+            </div>
+            
+            <div class="animation" anim="4" action="chevronsOn">
+                Chevrons on
+            </div>
+            <div class="animation" anim="4" action="chevronsOff">
+                Chevrons off
+            </div>
+            
+             <div class="animation" anim="4" action="symbolsOn">
+                Symbols on
+            </div>
+            <div class="animation" anim="4" action="symbolsOff">
+                Symbols off
+            </div>
+            
+            <div class="animation" anim="4" action="stairsOn">
+                Stairs on
+            </div>
+            <div class="animation" anim="4" action="stairsOff">
+                Stairs off
+            </div>
+            
+            <div class="animation" anim="4" action="rightStairsOn">
+                Right side of staircase on
+            </div>
+            <div class="animation" anim="4" action="rightStairsOff">
+                Right side of staircase off
+            </div>
+            
+            <div class="animation" anim="4" action="leftStairsOn">
+                Left side of staircase on
+            </div>
+            <div class="animation" anim="4" action="leftStairsOff">
+                Left side of staircase off
+            </div>
+            
+            
+            <div class="animation" anim="4" action="rearWindowOn">
+                Rear window on
+            </div>
+            <div class="animation" anim="4" action="rearWindowOff">
+                Rear window off
+            </div>
+            
+            <hr />
+        	<div class="animation" anim="4" action="chevron0">
+                Chevron 0 on
+            </div>
+            <div class="animation" anim="4" action="chevron1">
+                Chevron 1 on
+            </div>
+            <div class="animation" anim="4" action="chevron2">
+                Chevron 2 on
+            </div>
+            <div class="animation" anim="4" action="chevron3">
+                Chevron 3 on
+            </div>
+            <div class="animation" anim="4" action="chevron4">
+                Chevron 4 on
+            </div>
+            <div class="animation" anim="4" action="chevron5">
+                Chevron 5 on
+            </div>
+            <div class="animation" anim="4" action="chevron6">
+                Chevron 6 on
+            </div>
+            <div class="animation" anim="4" action="chevron7">
+                Chevron 7 on
+            </div>
+            <div class="animation" anim="4" action="chevron8">
+                Chevron 8 on
+            </div>
+        	
+        <hr />
+        <h2>Individual LED control</h2>
+        	<input type="text" size="3" id="individualLED"></input>
+            <div class="individualLEDAnimation" anim="4" action="individualLEDOn">
+                On
+            </div>
+            <div class="individualLEDAnimation" anim="4" action="individualLEDOff">
+                Off
+            </div>
+        
+        
+        </div>
+
+		<hr />
+        <div class="controls">
+        	<div class="control" onclick="window.location = 'index.htm';">
+                Dialing page
+            </div>
+            <div class="control" onclick="reboot();">
+                Reboot
+            </div>
+            <div class="control" onclick="shutdown();">
+                Shutdown
+            </div>
+        </div>
+
+        <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
+        <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+        <script type="text/javascript">
+        	
+        	function postJSON(post_url, post_data) {
+                $.post({
+                    url: post_url,
+                    data: post_data
+                })
+                .fail(function() {
+                    alert('Could not connect with Stargate server');
+                });
+            }
+            function reboot() {
+                $.post({
+                    url: '/reboot'
+                });
+            }
+            
+            function shutdown() {
+                $.post({
+                    url: '/shutdown'
+                });
+            }
+
+            $('div.animations div.animation').click(function() {
+                const anim = +$(this).attr('anim');
+                const action = $(this).attr('action');
+				data = JSON.stringify({
+                        anim: anim,
+                        action: action
+                       });
+                postJSON('/update', data);
+            });
+            
+            $('div.animations div.individualLEDAnimation').click(function() {
+                const anim = +$(this).attr('anim');
+                const action = $(this).attr('action');
+                var LED = parseInt($("#individualLED").val(), 10);
+				data = JSON.stringify({
+                        anim: anim,
+                        action: action,
+                        led: LED
+                       });
+                postJSON('/update', data);
+            });
+            
+            $('div.animations div.individualSymbolAnimation').click(function() {
+                const anim = +$(this).attr('anim');
+                const action = $(this).attr('action');
+                var symbol = 0;
+                if(action.includes("Numeric"))
+	                symbol = parseInt($("#individualNumericSymbol").val(), 10);
+	            else
+	                symbol = parseInt($("#individualPhysicalSymbol").val(), 10);
+				data = JSON.stringify({
+                        anim: anim,
+                        action: action,
+                        symbol: symbol
+                       });
+                postJSON('/update', data);
+            });
+
+        </script>
+    </body>
+</html>

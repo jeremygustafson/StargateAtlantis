@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <!-- Chevrons from Manz: https://codepen.io/manz/pen/zoREJL -->
+        <meta charset="UTF-8"> 
+        <title>Stargate Atlantis</title>
+        <link rel="stylesheet" href="main.css" />
+    </head>
+    <body>
+        <div id="presets">
+        </div>
+
+       
+    	<div class="controls">
+        	<div class="control" onclick="window.location = 'index.htm';">
+                Dialing page
+            </div>
+        </div>
+
+        <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
+        <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+        <script type="text/javascript">
+        // From https://www.tsacs.com/gate-addresses/
+        // and https://stargate.fandom.com/wiki/Category:Pegasus_planets
+		addresses = [
+			{name: "Screen Accurate Dial",
+			address: "22-36-9-21-15-28-31"},
+			{name: "Asuras",
+			address: "1-6-25-34-16-30-19"},
+			{name: "Athos",
+			address: "10-7-34-26-28-20-19"},
+			/*{name: "Dagan",
+			address: "15-3-24-15-5-31-19"}, This has chevron 15 twice? */
+			{name: "Earth",
+			address: "26-27-16-12-30-31-3-19"},
+			{name: "Genii Homeworld",
+			address: "36-15-13-24-3-23-19"},
+			{name: "Hoff",
+			address: "31-24-9-26-15-5-19"},
+			{name: "Lantea",
+			address: "11-17-13-22-9-1-19"},
+			{name: "Lucius' planet",
+			address: "1-23-30-32-20-18-19"},
+			{name: "M1B-129",
+			address: "23-32-30-1-18-20-19"},
+			{name: "M4X-337",
+			address: "2-5-15-8-31-33-19"},
+			{name: "M65-PL8",
+			address: "28-27-31-16-33-17-19"},
+			{name: "Olesia",
+			address: "1-8-2-32-9-21-19"},
+			{name: "Planet of the Cloister",
+			address: "31-13-8-7-34-2-19"},
+			{name: "Sateda",
+			address: "1-21-18-15-20-34-19"},
+			{name: "Taranian settlement",
+			address: "1-15-29-2-13-23-19"},
+			{name: "Taranis",
+			address: "2-9-5-9-18-7-19"},
+			{name: "Vedeena",
+			address: "27-35-29-22-10-13-19"},
+			{name: "Wraith homeworld",
+			address: "26-12-1-24-24-8-19"}
+		];
+            
+            
+		$.each(addresses, function( index, value ) {
+			address = value.address.split("-");
+			$.each(address, function( index, value) {
+				value=("00" + value).substr(-2,2);
+				address[index] = '<img src="chevrons/A'+value+'.svg" />';
+			});
+			address = address.join("");
+			$("#presets").append('<div class="presetAddress" onclick="window.location = \'index.htm?address=' + value.address + '\';"><div class="name">' + value.name + '</div><div class="glyphs">' + address +  '</div></div>' );
+		});
+        </script>
+    </body>
+</html>
