@@ -3,9 +3,8 @@
 These are some troubleshooting notes I kept while building my gate. If you run into issues, hopefully something in here will be helpful.
 
 
-----------------------------------------
+--------------------
 ## Issue: Not hearing any sound after installing sound software
-----------------------------------------
 
 **Possible resolution:**
 
@@ -15,10 +14,8 @@ Re-run the Adafruit installer script, but disable /dev/zero playback when prompt
 
 
 
-----------------------------------------
+--------------------
 ## Issue: Speaker repeatedly plays a low-quality recording saying "To install the screenreader, press control-alt-space."
-----------------------------------------
-
 
 After rebooting, my Pi started repeating (every minute or so) a poor quality recording that said "To install the screenreader, press control-alt-space." Apparently this is due to the headless setup (described in the README).
 
@@ -33,9 +30,8 @@ sudo reboot
 
 
 
-----------------------------------------
+--------------------
 ## Issue: Some of the "sudo apt install" commands fail
-----------------------------------------
 
 When installing packages via "sudo apt install", I saw the following error messages:
 
@@ -65,9 +61,8 @@ Then retry your "sudo apt install".
 
 
 
-----------------------------------------
+--------------------
 ## Issue: Web controls only accessible by IP address, but not http://atlantispi.local/
-----------------------------------------
 
 After setting up my Pi and installing the Stargate code, I could only access the web page control panel by my Pi's local 10-dot IP address, but not "http://atlantispi.local/".
 
@@ -79,9 +74,8 @@ Install the apache2 software (including the "disable" and "stop" commands) as ex
 
 
 
-----------------------------------------
-## Issue: When refreshing the web page, it fails to load every-other time
 --------------------
+## Issue: When refreshing the web page, it fails to load every-other time
 
 **To resolve:**
 
@@ -98,9 +92,8 @@ In the WebServer.py file, make sure any `print()` commands are commented out. Fo
 
 
 
-----------------------------------------
+--------------------
 ## Issue: LEDs cycle colors then turn all white
-----------------------------------------
 
 **To resolve:**
 
@@ -123,9 +116,8 @@ Then reboot your Pi.
 
 
 
-----------------------------------------
+--------------------
 ## Issue: LEDs light up but occasionally flash/blink
-----------------------------------------
 
 **To resolve:**
 
@@ -139,7 +131,6 @@ Add a 300-500 Ohm resistor (I used 470) on the data line before your first LED. 
 ## Issue: "Disco Party" (LEDs spazzing out and flashing random colors)
 or
 ## Issue: None of my LEDs are lighting up!
---------------------
 
 As obvious as it sounds, check to make sure your connections haven't come loose, either where the jumper wires plug in together, or the solder points on the PCBs/LEDs. Even if you think the connections are secure, check them anyway. More than once I wasted a lot of time troubleshooting what I was *sure* was a software issue, only to discover a wire that looked like it was solidly connected, wasn't.
 
@@ -157,7 +148,6 @@ Lastly, I'm convinced that sometimes an LED might just be "bad" straight out of 
 
 --------------------
 ## Issue: When lighting up a section of LEDs, such as the left side panel of the staircase, one LED inexplicably flashes on then off, and remains off while all the other LEDs in that section remain on
---------------------
 
 I cannot claim to fully understand the root cause of this, but I do have a possible solution/workaround.
 
@@ -171,9 +161,8 @@ After many hours of troubleshooting and experimenting, I eventually tried settin
 
 
 
-----------------------------------------
+--------------------
 ## Issue: When dialing, the symbols that light up are are off by one from what I dialed
-----------------------------------------
 
 **To resolve:**
 
