@@ -128,9 +128,7 @@ Add a 300-500 Ohm resistor (I used 470) on the data line before your first LED. 
 
 
 --------------------
-## Issue: "Disco Party" (LEDs spazzing out and flashing random colors)
-or
-## Issue: None of my LEDs are lighting up!
+## Issue: "Disco Party" (LEDs spazzing out and flashing random colors), or, Issue: None of my LEDs are lighting up!
 
 As obvious as it sounds, check to make sure your connections haven't come loose, either where the jumper wires plug in together, or the solder points on the PCBs/LEDs. Even if you think the connections are secure, check them anyway. More than once I wasted a lot of time troubleshooting what I was *sure* was a software issue, only to discover a wire that looked like it was solidly connected, wasn't.
 
