@@ -21,8 +21,8 @@ Stargate Atlantis sound effects are all from https://github.com/RafaelDeJongh/ca
 - 1x set of [Adafruit Brass Standoffs](https://www.adafruit.com/product/2336)
 - 1x [Adafruit I2S 3W Breakout](https://www.adafruit.com/product/3006)
 - 1x [40mm Speaker](https://www.adafruit.com/product/3968)
-- 1x [5V / 20A power supply](https://smile.amazon.com/gp/product/B07TZNMD8K/) (the 100W version is just fine)
-- 1x [15A/250V rocker switch](https://smile.amazon.com/gp/product/B07KS2TQ45/)
+- 1x [20A / 5V power supply](https://smile.amazon.com/gp/product/B07TZNMD8K/) (the 100W version is just fine)
+- 1x [15A / 250V rocker switch](https://smile.amazon.com/gp/product/B07KS2TQ45/)
 - Lots of wire (see the section on Wire below for more details)
 - Optional: [6x2mm magnets](https://smile.amazon.com/gp/product/B079FLRQJP/) for control box and side panel tops
 
