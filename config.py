@@ -52,7 +52,9 @@ brightness_symbol       = 224
 brightness_wormhole_max = 204
 brightness_wormhole_min = 129
 brightness_stair        = 128
-brightness_side         = 128
+brightness_side_1       = 129
+brightness_side_2       = 204
+brightness_side_3       = 204
 brightness_rear_window  = 204
 brightness_rear_window_half = round(brightness_rear_window / 2)
 
@@ -69,7 +71,7 @@ color_rear_window1 = Color(brightness_rear_window, brightness_rear_window_half, 
 color_rear_window2 = Color(brightness_rear_window, brightness_rear_window, 0)
 color_rear_window3 = Color(brightness_rear_window, 0, brightness_rear_window)
 color_rear_window4 = Color(0,0,brightness_rear_window)
-color_side_panel = Color(brightness_side, brightness_side, brightness_side)
+color_side_panel = Color(brightness_side_1, brightness_side_2, brightness_side_3)
 color_off = Color(0,0,0)
 
 

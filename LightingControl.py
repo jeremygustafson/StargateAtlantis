@@ -66,14 +66,17 @@ class LightingControl:
 	
 	# Move to a specific symbol on the gate, using the in-universe numeric index
 	# This matches the svg filenames in web/chevrons/A__.svg
-	def move_to_numeric_symbol(self, index, direction):
+	def move_to_numeric_symbol(self, index, direction, skipSymbolOnFirstPassIfClose=False):
 		#print("DEBUG: move_to_numeric_symbol: index: ", index)
 		#print("DEBUG: move_to_numeric_symbol: physical symbol: ", config.symbol_values_as_list.index(index))
-		self.move_to_physical_symbol( config.symbol_values_as_list.index(index) , direction)
+		self.move_to_physical_symbol( config.symbol_values_as_list.index(index) , direction, skipSymbolOnFirstPassIfClose)
 		return
 	
 	# Move to a specific symbol on the gate
-	def move_to_physical_symbol(self, index, direction):
+	# The skipSymbolOnFirstPassIfClose variable applies if the next symbol is less than 5 away from the current
+	# symbol, aka one chevron's distance around the gate. This gives a longer and more satisfying dialing
+	# experience.
+	def move_to_physical_symbol(self, index, direction, skipSymbolOnFirstPassIfClose=False):
 		print("DEBUG: move_to_physical_symbol: index: ", index)
 		#print("DEBUG: move_to_physical_symbol: self.current_physical_symbol: ", self.current_physical_symbol)
 		print("DEBUG: move_to_physical_symbol: numeric symbol: ", config.symbol_values_as_list[index])
@@ -102,6 +105,9 @@ class LightingControl:
 			else:
 				delta = self.current_physical_symbol + (config.num_symbols - index)
 		
+		if skipSymbolOnFirstPassIfClose and delta < 6:
+			delta += config.num_symbols
+		
 		self.stay_lit_physical_symbols.append(index)
 		
 		# For debugging:
@@ -110,6 +116,10 @@ class LightingControl:
 		
 		for i in range(delta):
 			if self.current_physical_symbol not in self.stay_lit_physical_symbols:
+				self.strip.setPixelColor(config.symbol_leds_as_list[self.current_physical_symbol], config.color_off)
+			
+			if skipSymbolOnFirstPassIfClose and index == self.current_physical_symbol:
+				skipSymbolOnFirstPassIfClose = False
 				self.strip.setPixelColor(config.symbol_leds_as_list[self.current_physical_symbol], config.color_off)
 			
 			if direction == self.FORWARD:
@@ -189,22 +199,22 @@ class LightingControl:
 	def light_right_side_panel(self, color=config.color_side_panel, show=True):
 		for i in config.leds['right_side_panel']:
 			self.strip.setPixelColor(i, color)
-			if show:
-				self.strip.show()
+		if show:
+			self.strip.show()
 	
 	# Light the LEDs above and to the right of the staircase
 	def light_right_top_stairs(self, color=config.color_side_panel, show=True):
 		for i in config.leds['right_top_stairs']:
 			self.strip.setPixelColor(i, color)
-			if show:
-				self.strip.show()
+		if show:
+			self.strip.show()
 	
 	# Light the left side panel
 	def light_left_side_panel(self, color=config.color_side_panel, show=True):
 		for i in config.leds['left_side_panel']:
 			self.strip.setPixelColor(i, color)
-			if show:
-				self.strip.show()
+		if show:
+			self.strip.show()
 	
 	# Light the LEDs above and to the left of the staircase
 	def light_left_top_stairs(self, color=config.color_side_panel, show=True):
@@ -215,17 +225,17 @@ class LightingControl:
 	
 	# Light all the side panels
 	def light_side_panels(self, show=True):
-		self.light_right_side_panel(show=show)
-		self.light_left_side_panel(show=show)
 		self.light_right_top_stairs(show=show)
 		self.light_left_top_stairs(show=show)
+		self.light_right_side_panel(show=show)
+		self.light_left_side_panel(show=show)
+		
 	
 	def darken_side_panels(self, show=True):
-		self.light_right_side_panel(color=config.color_off, show=show)
-		self.light_left_side_panel(color=config.color_off, show=show)
 		self.light_right_top_stairs(color=config.color_off, show=show)
 		self.light_left_top_stairs(color=config.color_off, show=show)
-	
+		self.light_right_side_panel(color=config.color_off, show=show)
+		self.light_left_side_panel(color=config.color_off, show=show)
 	
 	
 	def wormhole_pick_new_color_for_single_led(self, led_index):

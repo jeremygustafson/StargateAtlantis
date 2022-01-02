@@ -23,7 +23,7 @@ class DialProgram:
 		for i, symbol in enumerate(address):
 			self.audio.play_roll()
 			sleep(config.audio_delay_time)
-			self.light_control.move_to_numeric_symbol(symbol, direction)
+			self.light_control.move_to_numeric_symbol(symbol, direction, skipSymbolOnFirstPassIfClose=True)
 			self.audio.stop_roll()
 
 			self.audio.play_chevron_lock()

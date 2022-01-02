@@ -632,7 +632,7 @@ vi /home/pi/.config/lxsession/LXDE-pi/autostart
 and add this line to the bottom (this will execute the script we created in an earlier step)
 
 ```
-@/bin/bash 'sleep 5 ; /home/pi/Desktop/StargateAtlantisCommand.sh'
+@/bin/bash 'sleep 15 ; /home/pi/Desktop/StargateAtlantisCommand.sh'
 ```
 
 Reboot your Pi, and the webpage should launch on its attached display automatically!

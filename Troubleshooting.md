@@ -4,7 +4,7 @@ These are some troubleshooting notes I kept while building my gate. If you run i
 
 
 ----------------------------------------
-### Issue: Not hearing any sound after installing sound software
+## Issue: Not hearing any sound after installing sound software
 ----------------------------------------
 
 **Possible resolution:**
@@ -16,7 +16,7 @@ Re-run the Adafruit installer script, but disable /dev/zero playback when prompt
 
 
 ----------------------------------------
-### Issue: Speaker repeatedly plays a low-quality recording saying "To install the screenreader, press control-alt-space."
+## Issue: Speaker repeatedly plays a low-quality recording saying "To install the screenreader, press control-alt-space."
 ----------------------------------------
 
 
@@ -34,7 +34,7 @@ sudo reboot
 
 
 ----------------------------------------
-### Issue: Some of the "sudo apt install" commands fail
+## Issue: Some of the "sudo apt install" commands fail
 ----------------------------------------
 
 When installing packages via "sudo apt install", I saw the following error messages:
@@ -66,7 +66,7 @@ Then retry your "sudo apt install".
 
 
 ----------------------------------------
-### Issue: Web controls only accessible by IP address, but not http://atlantispi.local/
+## Issue: Web controls only accessible by IP address, but not http://atlantispi.local/
 ----------------------------------------
 
 After setting up my Pi and installing the Stargate code, I could only access the web page control panel by my Pi's local 10-dot IP address, but not "http://atlantispi.local/".
@@ -80,7 +80,7 @@ Install the apache2 software (including the "disable" and "stop" commands) as ex
 
 
 ----------------------------------------
-### Issue: When refreshing the web page, it fails to load every-other time
+## Issue: When refreshing the web page, it fails to load every-other time
 --------------------
 
 **To resolve:**
@@ -99,7 +99,7 @@ In the WebServer.py file, make sure any `print()` commands are commented out. Fo
 
 
 ----------------------------------------
-### Issue: LEDs cycle colors then turn all white
+## Issue: LEDs cycle colors then turn all white
 ----------------------------------------
 
 **To resolve:**
@@ -124,7 +124,7 @@ Then reboot your Pi.
 
 
 ----------------------------------------
-### Issue: LEDs light up but occasionally flash/blink
+## Issue: LEDs light up but occasionally flash/blink
 ----------------------------------------
 
 **To resolve:**
@@ -136,9 +136,9 @@ Add a 300-500 Ohm resistor (I used 470) on the data line before your first LED. 
 
 
 --------------------
-### Issue: "Disco Party" (LEDs spazzing out and flashing random colors)
+## Issue: "Disco Party" (LEDs spazzing out and flashing random colors)
 or
-### Issue: None of my LEDs are lighting up!
+## Issue: None of my LEDs are lighting up!
 --------------------
 
 As obvious as it sounds, check to make sure your connections haven't come loose, either where the jumper wires plug in together, or the solder points on the PCBs/LEDs. Even if you think the connections are secure, check them anyway. More than once I wasted a lot of time troubleshooting what I was *sure* was a software issue, only to discover a wire that looked like it was solidly connected, wasn't.
@@ -155,8 +155,24 @@ Lastly, I'm convinced that sometimes an LED might just be "bad" straight out of 
 
 
 
+--------------------
+## Issue: When lighting up a section of LEDs, such as the left side panel of the staircase, one LED inexplicably flashes on then off, and remains off while all the other LEDs in that section remain on
+--------------------
+
+I cannot claim to fully understand the root cause of this, but I do have a possible solution/workaround.
+
+I had an issue where when I turned on the left side panel of the staircase (either individually, or by calling the `all_on()` function), the topmost LED would flash on for a split second, then turn off, while all the other LEDs remained on. If I turned the LED on by itself, it stayed on. If I did a strand test, the LED worked fine. If I coded it to turn red, green, or blue, it worked fine. If I turned the side on followed by turning on the wormhole, for instance, the single LED would flicker as if it was being told both to turn on and off at the same time.  I'm pretty sure at one point I replaced the LED, though I'm not 100% sure so I can't completely rule out a hardware issue. In any case, it was baffling.
+
+After many hours of troubleshooting and experimenting, I eventually tried setting the 4 LEDs in that side panel to a different color, and the top LED stayed on. So, for reasons I don't understand, that particular LED (#192 on my strand) simply can't be set to `Color(128,128,128)`. It appears it can be set to almost anything else, just not that particular color. Whether that's because it's a defective LED, bad wiring/soldering, or perhaps there's some weirdly specific bug in the rpi_ws281x python library regarding LED #192 in a strand, or for some other reason, I don't know. But the workaround if you're experiencing a similar issue may be as simple as "choose a different color."
+
+(and if you're wondering why I didn't see the issue when turning the LED on individually, it's because my `light_LED()` function defaults to the blue chevron color instead of the `brightness_side` color; when I manually coded the LED to turn on with `Color(128,128,128)`, it flashed and went out.)
+
+
+
+
+
 ----------------------------------------
-### Issue: When dialing, the symbols that light up are are off by one from what I dialed
+## Issue: When dialing, the symbols that light up are are off by one from what I dialed
 ----------------------------------------
 
 **To resolve:**
