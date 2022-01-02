@@ -6,7 +6,7 @@ process() {
 while read input; do 
   case "$input" in
     UNBLANK*)	killall omxplayer.bin ;; # This will kill the process of player
-    BLANK*)	omxplayer --loop --no-osd --no-keys /home/pi/stargate/web/StargateAtlantisRotatingPegasusLogoForWallpaperEngine.mp4 & ;; # dont forget the & on the end or it will never stop, just add your movie file path
+    BLANK*)	omxplayer --loop --no-osd --no-keys /home/pi/stargateatlantis/web/SGASpinningLogoAnimation.mp4 & ;; # dont forget the & on the end or it will never stop, just add your movie file path
   esac
 done
 }
